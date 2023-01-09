@@ -2,6 +2,9 @@ package org.acme.controller;
 
 import io.vertx.core.json.JsonObject;
 import org.acme.model.Game;
+import org.acme.model.Genre;
+import org.acme.model.Mode;
+import org.acme.model.Platform;
 import org.acme.service.GameService;
 
 import javax.transaction.Transactional;
@@ -21,8 +24,8 @@ public class GameController {
         return Response.ok().entity(gameList).build();
     }
     @GET
-    @Path("/{asd}")
-    public Response getGame(@QueryParam("name") String name,@PathParam("asd")String path) {
+    @Path("/{path}")
+    public Response getGame(@QueryParam("name") String name,@PathParam("path")String path) {
 //        Game game = Game.find("name = ?1", name).firstResult();
         Game game = Game.find("name = ?1", path).firstResult();
         return Response.ok().entity(game).build();
@@ -34,6 +37,9 @@ public class GameController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response post(JsonObject payload) throws ParseException {
         Game game = new Game();
+        Genre genre = new Genre();
+        Platform platform = new Platform();
+        Mode mode = new Mode();
         game.name = payload.getString("name");
         game.description = payload.getString("description");
         Object dateObject = payload.getValue("releaseDate");
@@ -44,10 +50,21 @@ public class GameController {
         game.rating = payload.getString("rating");
         game.status = payload.getString("status");
 
-        game.genre = payload.getString("genre");
-        game.platform = payload.getString("platform");
-        game.mode = payload.getString("mode");
+        genre.name = payload.getString("genre");
+        game.genre = genre.name.split(",");
+
+        platform.name = payload.getString("platform");
+        game.platform = platform.name.split(",");
+
+        mode.name = payload.getString("mode");
+        game.mode = mode.name.split(",");
         game.persist();
+        genre.id = game.id;
+        platform.id = game.id;
+        mode.id = game.id;
+        mode.persist();
+        platform.persist();
+        genre.persist();
         return Response.ok().entity(game).build();
     }
 

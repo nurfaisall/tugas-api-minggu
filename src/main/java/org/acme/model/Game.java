@@ -36,12 +36,9 @@ public class Game extends PanacheEntityBase {
     @Column(name = "release_date")
     public Date releaseDate;
 
-    @Column(name = "genre")
-    public String genre;
+    public String[] genre;
 
-    @Column(name = "platform")
-    public String platform;
+    public String[] platform;
 
-    @Column(name = "mode")
-    public String mode;
+    public String[] mode;
 }

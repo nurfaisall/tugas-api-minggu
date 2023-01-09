@@ -52,12 +52,16 @@ public class GameController {
 
         genre.name = payload.getString("genre");
         game.genre = genre.name.split(",");
+        game.genreData = Arrays.toString(game.genre);
 
         platform.name = payload.getString("platform");
         game.platform = platform.name.split(",");
+        game.platformData = Arrays.toString(game.platform);
 
         mode.name = payload.getString("mode");
         game.mode = mode.name.split(",");
+        game.modeData = Arrays.toString(game.mode);
+
         game.persist();
         genre.id = game.id;
         platform.id = game.id;

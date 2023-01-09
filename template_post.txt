@@ -1,0 +1,12 @@
+{
+    "name" : "call of duty",
+    "description" :"Experience Call of Duty: the worlds best-selling video game franchise. Discover the latest updates to Warzone Season 1, and experience the new era of Call",
+    "developer" : "activision",
+    "releaseDate" : "29-10-2003",
+    "rating" : "T",
+    "status" : "released",
+    "genre" : "adventure,competitive",
+    "platform" : "window,ps3",
+    "mode" : "singleplayer,multiplayer"
+
+}

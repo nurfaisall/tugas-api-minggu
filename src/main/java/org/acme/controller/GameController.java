@@ -75,7 +75,12 @@ public class GameController {
     @DELETE
     @Transactional
     public JsonObject delete(@QueryParam("name") String name) {
+        Game id = Game.find("name = ?1",name).firstResult();
+        Mode.delete("id = ?1",id.id);
+        Genre.delete("id = ?1",id.id);
+        Platform.delete("id = ?1",id.id);
         Game.delete("name = ?1",name);
+
         return new JsonObject();
     }
 
